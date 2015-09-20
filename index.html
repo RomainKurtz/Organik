@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Organik Project</title>
+    <!-- data-main attribute tells require.js to load
+             scripts/main.js after require.js loads. -->
+    <!-- <script src="./bower_components/three.js/build/three.min.js"></script> -->
+    <script data-main="scripts/main" src="./bower_components/requirejs/require.js"></script>
+</head>
+<script type="text/javascript">
+require.config({
+    paths: {
+        three: '../bower_components/three.js/build/three.min'
+    },
+    shim: {
+        three: {
+            exports: 'THREE'
+        }
+    }
+});
+</script>
+
+<body>
+    <h1>Organik Sample</h1>
+</body>
+
+</html>
