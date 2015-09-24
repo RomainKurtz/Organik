@@ -1,11 +1,11 @@
-define("organik/sceneManager",["three" , "organik/atomManager"],function(THREE, AtomManager){
+define("organik/sceneManager",["three", "organik/cameraManager", "organik/renderManager"],
+function(THREE, CameraManager, RenderManager){
     var instance = null;
 
     function SceneManager(){
         if(instance !== null){
             throw new Error("Cannot instantiate more than one SceneManager, use SceneManager.getInstance()");
         } 
-        
         this._initialize();
     }
     SceneManager.prototype = {
@@ -13,36 +13,31 @@ define("organik/sceneManager",["three" , "organik/atomManager"],function(THREE, 
             // summary:
             // Initializes the singleton.
             this.scene = new THREE.Scene();
-			this.camera = new THREE.PerspectiveCamera( 75, window.innerWidth/window.innerHeight, 0.1, 1000 );
-
-			this.renderer = new THREE.WebGLRenderer();
-			this.renderer.setSize( window.innerWidth, window.innerHeight );
-			document.body.appendChild( this.renderer.domElement );
-
-			this.camera.position.z = 10;
-            //this._createSceneContainer();
-            this._render();
-        },
-        _render: function(){
-                requestAnimationFrame(function(){
-                   SceneManager.getInstance()._render();
-                });
-			    AtomManager.renderAtoms();
-                this.renderer.render(this.scene, this.camera);
+            CameraManager.changeCameraPosition(new THREE.Vector3(5,5,10));
+            RenderManager.setRendererScene(this.scene);
+            
         },
         add: function(containerName, object){
-            //console.log(eval(containerName))
-            
-            if(!this.scene.hasOwnProperty(containerName.toString())){
-                // container undefined create it
-                this.scene.add(this[containerName.toString()] = new THREE.Object3D());
+            var hasContainer = false;
+            for(var i=0; i< this.scene.children.length ; i++){  
+                if(this.scene.children[i].name === containerName){
+                    this.scene.children[i].add(object);
+                    hasContainer = true;
+                    break; 
+                }
             }
-            this[containerName.toString()].add(object);
+            if(!hasContainer){
+                // if container undefined then create it
+                var newContainer = new THREE.Object3D();
+                newContainer.name = containerName;
+                newContainer.add(object);
+                this.scene.add(newContainer);
+            }
         },
         _createSceneContainer: function(){
             this.atomContainer = new THREE.Object3D();
             this.scene.add(this.atomContainer);
-        }
+        },
        
     };
     SceneManager.getInstance = function(){

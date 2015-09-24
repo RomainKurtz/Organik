@@ -1,12 +1,9 @@
 /* global requirejs */
-requirejs(["three", "organik/atom","organik/atomManager" , "organik/sceneManager"], 
-function(THREE, Atom, AtomManager, SceneManager ) {
-			
-    		//AtomManager.AtomsGenerator(500);
-			for(var i = -2; i<3 ; i+=2){
-				for(var j = -2; j<3 ; j+=2){
-					var atom = new Atom();
-					atom.changePosition(new THREE.Vector3(i,j,Math.random()*10));
-				}
-			}
+requirejs(["three", "organik/atom", "organik/renderManager"], 
+function(THREE, Atom , RenderManager) {
+	for(var i = 0; i<50 ; i++){
+		var atom = new Atom();
+		atom.changePosition(new THREE.Vector3(Math.random()*10,Math.random()*10,Math.random()*1));
+		atom.changeRotation(new THREE.Vector3(Math.random(),Math.random(),Math.random()));
+	}
 });

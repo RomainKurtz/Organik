@@ -11,8 +11,7 @@ define("organik/atom", ["three","organik/atomManager", "organik/sceneManager"],
                 this.objectAvatar = null;
                 this.createAvatar();
                 this.direction = true;
-                this.objectAvatar.rotation.x = Math.random();
-                this.objectAvatar.rotation.y = Math.random();
+                this.velocity = Math.random()/50;
                 
                 AtomManager.addAtom(this);
             },
@@ -22,17 +21,23 @@ define("organik/atom", ["three","organik/atomManager", "organik/sceneManager"],
             changePosition : function(newPos){
                 this.objectAvatar.position.set(newPos.x,newPos.y,newPos.z);
             },
+            changeRotation : function(newOri){
+                this.objectAvatar.rotation.set(newOri.x,newOri.y,newOri.z);
+            },
+            changeVelocity : function(newVelocity){
+                this.velocity = newVelocity;
+            },
             behaviourUpdate : function(){
                 
-                this.objectAvatar.rotation.x += 0.1;
-                this.objectAvatar.rotation.y += 0.05;
+                this.objectAvatar.rotation.x += this.velocity;
+                this.objectAvatar.rotation.y += this.velocity/2;
                 
                 // goings and comings
                 if(this.direction){
-                    this.objectAvatar.position.z +=0.1;
+                    this.objectAvatar.position.z +=this.velocity;
                 }
                 else{
-                    this.objectAvatar.position.z -=0.1;
+                    this.objectAvatar.position.z -=this.velocity;
                 }
                 if ( this.objectAvatar.position.z < AtomManager.worldLimites.min.z){
                     this.direction = true;
@@ -43,9 +48,9 @@ define("organik/atom", ["three","organik/atomManager", "organik/sceneManager"],
             },
             createAvatar : function(){
                 var color = '#'+Math.floor(Math.random()*16777215).toString(16);
-                //var color = 0x00ff00;
-                var geometry = new THREE.BoxGeometry( 1, 1, 1 );
-                var material = new THREE.MeshBasicMaterial( { color: color } );
+                // color = 0x00ff00;
+                var geometry = new THREE.BoxGeometry( 0.5, 0.5, 0.5 );
+                var material = new THREE.MeshBasicMaterial( {wireframe:true, color: color } );
                 this.objectAvatar = new THREE.Mesh( geometry, material );
                 SceneManager.add( 'atomContainer', this.objectAvatar );
             }
