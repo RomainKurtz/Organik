@@ -2,7 +2,7 @@
 requirejs(["three", "organik/atom", "organik/cameraManager"], 
 function(THREE, Atom , CameraManager) {
 	CameraManager.changeCameraPosition(new THREE.Vector3(-125,5,2.5));
-	for(var i = 0; i<100 ; i++){
+	for(var i = 0; i<1000 ; i++){
 		var atom = new Atom();
 		atom.setRandomPosition();
 		//var link = new Link();
