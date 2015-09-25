@@ -1,5 +1,5 @@
-define("organik/cameraManager",
-["three", "trackballcontrols","organik/renderManager"],
+define("Organik/CameraManager",
+["three", "trackballcontrols","Organik/RenderManager"],
 function(THREE, TrackballControls, RenderManager){
     var instance = null;
 

@@ -1,4 +1,4 @@
-define("organik/renderManager",["three"],
+define("Organik/RenderManager",["three"],
 function(THREE){
     var instance = null;
 

@@ -1,4 +1,4 @@
-define("organik/sceneManager",["three", "organik/cameraManager", "organik/renderManager"],
+define("Organik/SceneManager",["three", "Organik/CameraManager", "Organik/RenderManager"],
 function(THREE, CameraManager, RenderManager){
     var instance = null;
 

@@ -1,4 +1,4 @@
-define("organik/atom", ["three","organik/atomManager", "organik/sceneManager"],
+define("Organik/Atom", ["three","Organik/AtomManager", "Organik/SceneManager"],
     function(THREE, AtomManager, SceneManager) {
         // start method
         function Atom() {
