@@ -1,5 +1,5 @@
-define("organik/atomManager",
-["three", "organik/atom","organik/renderManager", "organik/sceneManager"],
+define("Organik/AtomManager",
+["three", "Organik/Atom","Organik/RenderManager", "Organik/SceneManager"],
 function(THREE, Atom, RenderManager, SceneManager){
     var instance = null;
 
