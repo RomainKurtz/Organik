@@ -27,7 +27,8 @@ function(THREE, TrackballControls, RenderManager){
             RenderManager.resizeRenderer();
         },
         renderCamera: function(iMe){
-               iMe.controls.update();
+             //iMe.camera.rotation.y += 0.006;
+             iMe.controls.update();
         },
         changeCameraPosition : function(newPos){
                 this.camera.position.set(newPos.x,newPos.y,newPos.z);

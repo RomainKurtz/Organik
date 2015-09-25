@@ -1,9 +1,11 @@
 /* global requirejs */
-requirejs(["three", "organik/atom", "organik/renderManager"], 
-function(THREE, Atom , RenderManager) {
-	for(var i = 0; i<50 ; i++){
+requirejs(["three", "organik/atom", "organik/cameraManager"], 
+function(THREE, Atom , CameraManager) {
+	CameraManager.changeCameraPosition(new THREE.Vector3(-125,5,2.5));
+	for(var i = 0; i<100 ; i++){
 		var atom = new Atom();
-		atom.changePosition(new THREE.Vector3(Math.random()*10,Math.random()*10,Math.random()*1));
-		atom.changeRotation(new THREE.Vector3(Math.random(),Math.random(),Math.random()));
+		atom.setRandomPosition();
+		//var link = new Link();
+		//atom.changeRotation(new THREE.Vector3(Math.random(),Math.random(),Math.random()));
 	}
 });

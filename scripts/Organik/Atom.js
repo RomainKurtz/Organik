@@ -10,8 +10,8 @@ define("organik/atom", ["three","organik/atomManager", "organik/sceneManager"],
                 // define variable
                 this.objectAvatar = null;
                 this.createAvatar();
-                this.direction = true;
-                this.velocity = Math.random()/50;
+                this.direction = Math.floor(Math.random()*(1-0+1)); //Random True or False
+                this.velocity = Math.random()/5;
                 
                 AtomManager.addAtom(this);
             },
@@ -29,8 +29,8 @@ define("organik/atom", ["three","organik/atomManager", "organik/sceneManager"],
             },
             behaviourUpdate : function(){
                 
-                this.objectAvatar.rotation.x += this.velocity;
-                this.objectAvatar.rotation.y += this.velocity/2;
+                // this.objectAvatar.rotation.x += this.velocity;
+                // this.objectAvatar.rotation.y += this.velocity/2;
                 
                 // goings and comings
                 if(this.direction){
@@ -49,12 +49,19 @@ define("organik/atom", ["three","organik/atomManager", "organik/sceneManager"],
             createAvatar : function(){
                 var color = '#'+Math.floor(Math.random()*16777215).toString(16);
                 // color = 0x00ff00;
-                var geometry = new THREE.BoxGeometry( 0.5, 0.5, 0.5 );
-                var material = new THREE.MeshBasicMaterial( {wireframe:true, color: color } );
+                var geometry = new THREE.SphereGeometry( 0.5, 0.5, 0.5 );
+                var material = new THREE.MeshBasicMaterial( {/*wireframe:true,*/ color: color } );
                 this.objectAvatar = new THREE.Mesh( geometry, material );
-                SceneManager.add( 'atomContainer', this.objectAvatar );
+                SceneManager.add( AtomManager.containerAtomsName , this.objectAvatar );
+            },
+            setRandomPosition :function(){
+                var axis = ['x','y','z'];
+                var newPos = new THREE.Vector3();
+                for(var i = 0 ; i< axis.length ; i++){
+                    newPos[axis[i]] = Math.random()*(AtomManager.worldLimites.max[axis[i]]-AtomManager.worldLimites.min[axis[i]]+1)+AtomManager.worldLimites.min[axis[i]];
+                }
+                this.objectAvatar.position.copy(newPos) ;
             }
-            
         }
         return Atom;
    })

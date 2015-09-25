@@ -1,6 +1,6 @@
 define("organik/atomManager",
-["three", "organik/atom","organik/renderManager"],
-function(THREE, Atom, RenderManager){
+["three", "organik/atom","organik/renderManager", "organik/sceneManager"],
+function(THREE, Atom, RenderManager, SceneManager){
     var instance = null;
 
     function AtomManager(){
@@ -16,18 +16,23 @@ function(THREE, Atom, RenderManager){
             // Initializes the singleton.
             this.atomList = [];
             this.worldLimites = {
-                max : new THREE.Vector3(1,1,1),
-                min : new THREE.Vector3(-1,-1,-1)
+                max : new THREE.Vector3(100,100,100),
+                min : new THREE.Vector3(-100,-100,-100)
             }
-            RenderManager.addOneCallbackToRenderer(this.renderAtoms,this);
+            this.containerAtomsName = 'atomContainer';
+            RenderManager.addOneCallbackToRenderer(this.renderAtomsManager,this);
         },
         addAtom : function(atom){
             this.atomList.push(atom);
         },
-        renderAtoms : function(iMe){
-            for(var i=0;i<iMe.atomList.length;i++){
+        renderAtomsManager : function(iMe){
+          //SceneManager.getSceneContainer(iMe.containerAtomsName).rotation.z +=0.01;
+          iMe.renderAtoms();
+        },
+        renderAtoms : function(){
+            for(var i=0;i<this.atomList.length;i++){
                 //call the render methode of the atom particle
-                 iMe.atomList[i].renderTick();
+                 this.atomList[i].renderTick();
             }
         },
         changeWorldLimits : function(min, max){

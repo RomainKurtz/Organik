@@ -12,8 +12,8 @@ function(THREE, CameraManager, RenderManager){
         _initialize: function(){
             // summary:
             // Initializes the singleton.
-            this.scene = new THREE.Scene();
-            CameraManager.changeCameraPosition(new THREE.Vector3(5,5,10));
+            this.scene = new THREE.Scene();        
+            //console.log(CameraManager.camera.rotation.z);
             RenderManager.setRendererScene(this.scene);
             
         },
@@ -38,6 +38,20 @@ function(THREE, CameraManager, RenderManager){
             this.atomContainer = new THREE.Object3D();
             this.scene.add(this.atomContainer);
         },
+        getSceneContainer: function(nameOfContainer){
+            for(var i=0; i< this.scene.children.length ; i++){  
+                if(this.scene.children[i].name === nameOfContainer){
+                    return (this.scene.children[i]);
+                }
+            }
+            return null;
+        },
+        // getDistanceAB: function(v1, v2) {
+        //         var dx = v1.x - v2.x;
+        //         var dy = v1.y - v2.y;
+        //         var dz = v1.z - v2.z;
+        //         return Math.sqrt(dx * dx + dy * dy + dz * dz);
+       // },
        
     };
     SceneManager.getInstance = function(){
