@@ -50,8 +50,8 @@ function(THREE, TrackballControls, RenderManager){
             //Set the control target 
             this.controls.target = new THREE.Vector3(5,5,0);
 
-            this.controls.noZoom = false;
-            this.controls.noPan = false;
+            this.controls.noZoom = true;
+            this.controls.noPan = true;
 
             this.controls.staticMoving = true;
             this.controls.dynamicDampingFactor = 0.3;
