@@ -6,6 +6,7 @@ function(THREE, Atom , CameraManager) {
 		var atom = new Atom();
 		atom.setRandomPosition();
 		atom.setRandomScale();
+		atom.setRandomDirection();
 		//var link = new Link();
 		//atom.changeRotation(new THREE.Vector3(Math.random(),Math.random(),Math.random()));
 	}
