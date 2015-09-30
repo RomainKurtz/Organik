@@ -61,6 +61,14 @@ define("Organik/Atom", ["three","Organik/AtomManager", "Organik/SceneManager"],
                     newPos[axis[i]] = Math.random()*(AtomManager.worldLimites.max[axis[i]]-AtomManager.worldLimites.min[axis[i]]+1)+AtomManager.worldLimites.min[axis[i]];
                 }
                 this.objectAvatar.position.copy(newPos) ;
+            },
+            setRandomScale :function(){
+                var min = 0.1;
+                var max = 1;
+                var scale = Math.random()*(max-min+1)+min;
+                this.objectAvatar.scale.x = scale;
+                this.objectAvatar.scale.y = scale;
+                this.objectAvatar.scale.z = scale;
             }
         }
         return Atom;
