@@ -10,8 +10,8 @@ define("Organik/Atom", ["three","Organik/AtomManager", "Organik/SceneManager"],
                 // define variable
                 this.objectAvatar = null;
                 this.createAvatar();
-                this.direction = Math.floor(Math.random()*(1-0+1)); //Random True or False
-                this.velocity = Math.random()/5;
+                this.direction = new THREE.Vector3(1,0,0);
+                this.velocity = Math.random()/2;
                 
                 AtomManager.addAtom(this);
             },
@@ -31,20 +31,23 @@ define("Organik/Atom", ["three","Organik/AtomManager", "Organik/SceneManager"],
                 
                 // this.objectAvatar.rotation.x += this.velocity;
                 // this.objectAvatar.rotation.y += this.velocity/2;
-                
-                // goings and comings
-                if(this.direction){
-                    this.objectAvatar.position.z +=this.velocity;
-                }
-                else{
-                    this.objectAvatar.position.z -=this.velocity;
-                }
-                if ( this.objectAvatar.position.z < AtomManager.worldLimites.min.z){
-                    this.direction = true;
-                }
-                if ( this.objectAvatar.position.z > AtomManager.worldLimites.max.z){
-                    this.direction = false;
-                }
+
+                // move object
+                this.objectAvatar.translateOnAxis(this.direction,this.velocity);
+
+
+                // next frame behaviour test
+                var positionAtomNextFrame = this.objectAvatar.position.clone();
+                var v1 = new THREE.Vector3();
+                v1.copy( this.direction ).applyQuaternion( this.objectAvatar.quaternion );
+                positionAtomNextFrame.add( v1.multiplyScalar( this.velocity ) );
+                  if ( positionAtomNextFrame.x < AtomManager.worldLimites.min.x || positionAtomNextFrame.y < AtomManager.worldLimites.min.y || positionAtomNextFrame.z < AtomManager.worldLimites.min.z){
+                        this.direction.negate();
+                  }
+                  if ( positionAtomNextFrame.x > AtomManager.worldLimites.max.x || positionAtomNextFrame.y > AtomManager.worldLimites.max.y  || positionAtomNextFrame.z > AtomManager.worldLimites.max.z ){
+                        this.direction.negate();
+                  }
+                // end of next frame behaviour test
             },
             createAvatar : function(){
                 var color = '#'+Math.floor(Math.random()*16777215).toString(16);
@@ -69,7 +72,15 @@ define("Organik/Atom", ["three","Organik/AtomManager", "Organik/SceneManager"],
                 this.objectAvatar.scale.x = scale;
                 this.objectAvatar.scale.y = scale;
                 this.objectAvatar.scale.z = scale;
-            }
+            },
+            setRandomDirection :function(){
+                var axis = ['x','y','z'];
+                var newDir = new THREE.Vector3();
+                for(var i = 0 ; i< axis.length ; i++){
+                    newDir[axis[i]] = Math.random();
+                }
+                this.direction.copy(newDir) ;
+            },
         }
         return Atom;
    })
