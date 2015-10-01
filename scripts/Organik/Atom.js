@@ -50,11 +50,13 @@ define("Organik/Atom", ["three","Organik/AtomManager", "Organik/SceneManager"],
                 // end of next frame behaviour test
             },
             createAvatar : function(){
-                var color = '#'+Math.floor(Math.random()*16777215).toString(16);
-                // color = 0x00ff00;
-                var geometry = new THREE.SphereGeometry( 0.5, 0.5, 0.5 );
-                var material = new THREE.MeshBasicMaterial( {/*wireframe:true,*/ color: color } );
-                this.objectAvatar = new THREE.Mesh( geometry, material );
+                THREE.ImageUtils.crossOrigin = '';
+                var map = THREE.ImageUtils.loadTexture( "http://i.imgur.com/lWBb0k4.png" );
+                var material = new THREE.SpriteMaterial( {
+                    map: map,
+					color: Math.random() * 0x808008 + 0x808080,
+				} );
+                this.objectAvatar = new THREE.Sprite( material );  
                 SceneManager.add( AtomManager.containerAtomsName , this.objectAvatar );
             },
             setRandomPosition :function(){
