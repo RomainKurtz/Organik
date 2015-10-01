@@ -50,7 +50,6 @@ define("Organik/Atom", ["three","Organik/AtomManager", "Organik/SceneManager"],
                 // end of next frame behaviour test
             },
             createAvatar : function(){
-                THREE.ImageUtils.crossOrigin = '';
                 var map = THREE.ImageUtils.loadTexture( "http://i.imgur.com/lWBb0k4.png" );
                 var material = new THREE.SpriteMaterial( {
                     map: map,
